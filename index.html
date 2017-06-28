@@ -23,15 +23,15 @@
     <br/>
     <div>
       <h1>search Item: {{narrowIt.searchItem}}</h1>
+      
+    </div>
+    <div>
+      <h2>Filtered {{narrowIt.filteredList}} out of {{narrowIt.fullList}}</h2>
     </div>
 
-    <ol>
-      <li ng-repeat="item in narrowIt.found">
-          {{item.name}}/{{item.description}}
-          <button>Remove Item</button>
-      </li>
-
-    </ol>
+    <found-items 
+    found="narrowIt.found"
+    on-remove="narrowIt.removeItem(index)"></found-items>
 
 
   </div>

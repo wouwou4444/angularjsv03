@@ -1,7 +1,6 @@
-    <ul>
+    <ol>
       <li ng-repeat="item in narrowIt.found">
-          {{item.name}}/{{item.description}}
-          <button ng-click="list.onRemove({index: $index});">Remove Item</button>
+          {{item.id}},{{item.short_name}},{{item.name}}, {{item.description}},{{item.price_small}},{{item.large}} 
+          <button ng-click="narrowIt.onRemove({index: $index});">Don't want this one!</button>
       </li>
-
-    </ul>
+    </ol>

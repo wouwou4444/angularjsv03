@@ -4,7 +4,27 @@
     angular.module('NarrowItDownApp', [])
     .controller('NarrowItDownController', NarrowItDownController)
     .service('MenuSearchService', MenuSearchService)
+    .directive('foundItems', FoundItems)
     .constant('ApiBasePath', "https://davids-restaurant.herokuapp.com");
+
+    function FoundItems( ) {
+        var ddo = {
+            templateUrl: 'foundItems.html',
+            scope: {
+                found: '<',
+                onRemove: '&'            
+            },
+            controller: narrowDirectiveController,
+            controllerAs: 'narrowIt',
+            bindToController: true
+        };
+
+        return ddo;
+    }
+
+    function narrowDirectiveController () {
+        var narrowIt = this;
+    }
 
 
     MenuSearchService.$inject = ['$http', 'ApiBasePath'];
@@ -20,7 +40,7 @@
                 return true;
             }
         }
-        
+
         service.getMatchedMenuItems = function (searchItem) {
 
             service.searchItem = searchItem;
@@ -35,6 +55,7 @@
                 var x;
                 console.log('FoundItems number:', foundItems.length);
                 console.log('searchItem:', searchItem)
+                service.fullList = foundItems.length;
 
                 if ( service.searchItem != "" ) {
 
@@ -43,6 +64,7 @@
                 
                 // return processed items
                 console.log('FoundItems number:', foundItems.length);
+                service.filteredList = foundItems.length;
                 return foundItems;
             })
             .catch(function (error){
@@ -57,7 +79,8 @@
         var narrowIt = this;
 
         narrowIt.searchItem = "";
-
+        narrowIt.filteredList = 0;
+        narrowIt.fullList = 0;
         //narrowIt.found = [];
 
         narrowIt.getItems = function (searchItem){
@@ -65,6 +88,8 @@
             //console.log("Promise: ", promise);
             promise.then(function (response) {
                 narrowIt.found = response;
+                narrowIt.filteredList = MenuSearchService.filteredList;
+                narrowIt.fullList = MenuSearchService.fullList;
                 //console.log("Response: ", response);
                 //console.log("Found2: ", narrowIt.found)
             })
@@ -74,7 +99,12 @@
             //console.log("Found: ", narrowIt.found);
         };
 
-        
-        
+       narrowIt.removeItem = function (itemIndex) {
+            console.log("'this' is: ", this);
+            console.log("removing item:", itemIndex )
+            narrowIt.found.splice(itemIndex,1);
+            narrowIt.filteredList = narrowIt.found.length;
+        }; 
+                
     }
 })()
