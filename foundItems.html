@@ -1,0 +1,7 @@
+    <ul>
+      <li ng-repeat="item in narrowIt.found">
+          {{item.name}}/{{item.description}}
+          <button ng-click="list.onRemove({index: $index});">Remove Item</button>
+      </li>
+
+    </ul>

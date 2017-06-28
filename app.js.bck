@@ -1,0 +1,69 @@
+(function (){
+    'use strict';
+
+    angular.module('NarrowItDownApp', [])
+    .controller('NarrowItDownController', NarrowItDownController)
+    .service('MenuSearchService', MenuSearchService)
+    .directive('foundItems', FoundItems)
+    .constant('ApiBasePath', "https://davids-restaurant.herokuapp.com");
+
+
+    function FoundItems() {
+        var ddo = {
+            templateUrl: 'foundItems.html'
+
+        
+        };
+
+        return ddo;
+    }
+
+function FoundItemsController() {
+  var narrowIt = this;
+}
+
+    MenuSearchService.$inject = ['$http', 'ApiBasePath'];
+    function MenuSearchService ($http, ApiBasePath) {
+        var service = this;
+
+        service.getMatchedMenuItems = function (searchItem) {
+            
+      
+            return $http({
+                method: "GET",
+                url: (ApiBasePath + "/menu_items.json")
+            })
+
+        };
+        
+    }
+    
+    NarrowItDownController.$inject = ['MenuSearchService'];
+    function NarrowItDownController (MenuSearchService) {
+        var narrowIt = this;
+
+        narrowIt.searchItem = "";
+
+        //narrowIt.found = [];
+
+        narrowIt.getMatchedMenuItems = function (searchItem){
+            var promise = MenuSearchService.getMatchedMenuItems(searchItem);
+            console.log("Promise: ", promise);
+            promise.then(function (response) {
+                narrowIt.found = response.data.menu_items.filter;
+
+                console.log("Response: ", response);
+                console.log("Found2: ", narrowIt.found)
+
+                return response.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });            
+            console.log("Found: ", narrowIt.found);
+        };
+
+        
+        
+    }
+})()
