@@ -7,6 +7,33 @@
     <link rel="stylesheet" href="styles/styles.css">
     <script src="angular.min.js"></script>
     <script src="app.js"></script>
+    <style>
+      .search {
+      font-weight: bold;
+      color: blue;
+      font-size: 1.2em;
+      clear:both;
+      text-align: left;
+      }
+      li {
+      margin-bottom: 7px;
+      font-size: 1.2em;
+      }
+      li > button {
+      margin-left: 6px;
+      }
+      button > span {
+      color: green;
+      }
+      .title {
+        clear:both;
+      }
+      .error {
+      font-weight: bold;
+      color: red;
+      font-size: 1.2em;        
+      }
+    </style>
   </head>
 <body ng-app="NarrowItDownApp">
    <div class="container" ng-controller="NarrowItDownController as narrowIt">
@@ -21,11 +48,11 @@
 
     <!-- found-items should be implemented as a component -->
     <br/>
-    <div>
-      <h1>search Item: {{narrowIt.searchItem}}</h1>
-      
+    <div class="search">
+      <h1>search Item: {{narrowIt.searchItem}}</h1>      
     </div>
-    <div>
+
+    <div class="title">
       <h2>Filtered {{narrowIt.filteredList}} out of {{narrowIt.fullList}}</h2>
     </div>
 

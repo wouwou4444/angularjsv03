@@ -24,6 +24,15 @@
 
     function narrowDirectiveController () {
         var narrowIt = this;
+                
+        narrowIt.emptyList = function () {
+            if ( narrowIt.found.length === 0) {
+                console.log("narrowIt.fullList", narrowIt.found);
+                return true;
+            }
+            console.log("narrowIt.fullList", narrowIt.found);
+            return false;
+        }
     }
 
 
@@ -61,6 +70,10 @@
 
                     foundItems = foundItems.filter(service.checkTerm);
                 }
+                else {
+                    foundItems = [];
+                    service.fullList = 0;
+                }
                 
                 // return processed items
                 console.log('FoundItems number:', foundItems.length);
@@ -81,7 +94,7 @@
         narrowIt.searchItem = "";
         narrowIt.filteredList = 0;
         narrowIt.fullList = 0;
-        //narrowIt.found = [];
+        narrowIt.found = [];
 
         narrowIt.getItems = function (searchItem){
             var promise = MenuSearchService.getMatchedMenuItems(searchItem);

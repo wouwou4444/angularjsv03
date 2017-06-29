@@ -1,6 +1,7 @@
-    <ol>
-      <li ng-repeat="item in narrowIt.found">
-          {{item.id}},{{item.short_name}},{{item.name}}, {{item.description}},{{item.price_small}},{{item.large}} 
-          <button ng-click="narrowIt.onRemove({index: $index});">Don't want this one!</button>
-      </li>
-    </ol>
+<ol>
+    <li ng-repeat="item in narrowIt.found">
+        {{item.id}},{{item.short_name}},{{item.name}}, {{item.description}},{{item.price_small}},{{item.large}} 
+        <button ng-click="narrowIt.onRemove({index: $index});">Don't want this one!</button>
+    </li>
+</ol>
+<div class="error" ng-if="narrowIt.emptyList()">Nothing Found</div>
